@@ -14,5 +14,8 @@ void regras();
 void submenu();
 void limparTela();
 void printarMao(peca mao[]);
-void mostrarMesa(peca carroca);
+void mostrarMesa(mesa mesaAtual);
+char escolherLado();
+int escolherIndicePeca(peca mao[]);
+void jogadaInvalida();
 #endif

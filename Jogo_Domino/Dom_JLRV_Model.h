@@ -13,13 +13,16 @@ typedef struct {
     int lado2;
 } peca;
 
+//Representa as duas extremidades abertas da mesa
 typedef struct {
-    peca pecas[28];
-    int tamanho;
     int ladoE;
     int ladoD;
+    peca sequencia[28]; //pecas jogadas na mesa, em ordem, da esquerda para a direita
+    int qtdPecas;        //quantidade de pecas atualmente na mesa
 } mesa;
+
 void geradorDomino(peca conjunto[]);
 peca encontrarMaiorCarroca(peca mao1[], peca mao2[]);
+void pecaInicial(peca jogador1[], peca jogador2[], peca *resultadoPeca);
 
 #endif
