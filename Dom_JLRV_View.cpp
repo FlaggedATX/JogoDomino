@@ -1,3 +1,10 @@
+//Dom_JLRV_View - Projeto Domino
+//13/08/2026
+//Joao Pedro Lemos Romano Francisco da Silva
+//Leopoldo Ortuzal Zuchieri
+//Renato Corral Silva
+//Victor Augusto Toledo Lucio Borghi
+
 #include "Dom_JLRV_View.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,10 +15,8 @@ void printMenu(){
     printf("========================================\n");
     printf("[1] - Iniciar jogo (2 jogadores)\n");
     printf("[2] - Iniciar jogo (contra o computador)\n");
-    printf("[3] - Retornar ao jogo interrompido\n");
-    printf("[4] - Regras gerais do Jogo\n");
-    printf("[5] - Salvar o jogo em arquivo\n");
-    printf("[6] - Recuperar o jogo salvo em arquivo\n");
+    printf("[3] - Regras gerais do Jogo\n");
+    printf("[4] - Recuperar o jogo salvo em arquivo\n");
     printf("[0] - Sair do programa\n");
     printf("Opcao selecionada: ");
 }
@@ -90,9 +95,11 @@ void limparTela(){
 
 //Mostra apenas as pecas que o jogador ainda tem na mao (busca ate 21)
 void printarMao(peca mao[]){
-    for(int i = 0; i < 21; i++){
+    int cont = 0;
+	for(int i = 0; i < 21; i++){
         if (!(mao[i].lado1 == -1 && mao[i].lado2 == -1)){
-            printf("[%d|%d]", mao[i].lado1, mao[i].lado2);
+            printf("%d) [%d|%d]   ",cont , mao[i].lado1, mao[i].lado2);
+			cont++;
         }
     }
     printf("\n");

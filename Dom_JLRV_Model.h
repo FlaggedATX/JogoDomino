@@ -21,6 +21,16 @@ typedef struct {
     int qtdPecas;        //quantidade de pecas atualmente na mesa
 } mesa;
 
+//Representa o estado do jogo
+typedef struct {
+	int jogador;
+	peca mao1[21];
+	peca mao2[21]; mesa mesaJogo;
+	peca monte[14];
+	int topoMonte;
+	int modoJogo;
+} jogo;
+
 void geradorDomino(peca conjunto[]);
 peca encontrarMaiorCarroca(peca mao1[], peca mao2[]);
 void pecaInicial(peca jogador1[], peca jogador2[], peca *resultadoPeca);

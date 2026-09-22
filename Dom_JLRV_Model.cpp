@@ -1,3 +1,10 @@
+//Dom_JLRV_Model - Projeto Domino
+//17/08/2026
+//Joao Pedro Lemos Romano Francisco da Silva
+//Leopoldo Ortuzal Zuchieri
+//Renato Corral Silva
+//Victor Augusto Toledo Lucio Borghi
+
 #include <stdio.h>
 #include "Dom_JLRV_Model.h"
 

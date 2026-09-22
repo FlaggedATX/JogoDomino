@@ -11,8 +11,6 @@
 
 #include "Dom_JLRV_Model.cpp"
 #include "Dom_JLRV_Controller.cpp"
-#include "Dom_JLRV_Model.h"
-#include "Dom_JLRV_Controller.h"
 
 int main(){
     srand(time(NULL)); //faz com que a funcao rand() gere numeros diferentes a cada execucao do programa
