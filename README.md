@@ -29,7 +29,9 @@ Classic double-six dominoes:
 
 ```
 JogoDomino/
-├── Jogo_Domino/   # Game source code
-├── .gitignore
+├── Dom_JLRV_Projeto.cpp        # Entry point
+├── Dom_JLRV_Model.cpp/.h       # Game data & logic
+├── Dom_JLRV_View.cpp/.h        # Display/output
+├── Dom_JLRV_Controller.cpp/.h  # Game flow & input
 └── README.md
 ```
