@@ -30,4 +30,6 @@ void comprarPecaComputador(peca mao[], peca monte[], int *topoMonte);
 void turnoComputador(peca mao[], mesa *mesaAtual, peca monte[], int *topoMonte);
 void menuJogarComputador(peca conjunto[]);
 void retomarJogoComputador(jogo sitJogo);
+int verificarLadosDisponiveis(peca pecaValida, mesa mesaJogo);
+
 #endif

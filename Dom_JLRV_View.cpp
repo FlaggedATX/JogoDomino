@@ -95,11 +95,9 @@ void limparTela(){
 
 //Mostra apenas as pecas que o jogador ainda tem na mao (busca ate 21)
 void printarMao(peca mao[]){
-    int cont = 0;
 	for(int i = 0; i < 21; i++){
         if (!(mao[i].lado1 == -1 && mao[i].lado2 == -1)){
-            printf("%d) [%d|%d]   ",cont , mao[i].lado1, mao[i].lado2);
-			cont++;
+            printf("%d) [%d|%d]   ", i, mao[i].lado1, mao[i].lado2);
         }
     }
     printf("\n");
