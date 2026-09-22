@@ -139,14 +139,25 @@ int existeJogadaPossivel(peca mao[], mesa mesaJogo){
 
 //Executa uma tentativa de jogada do jogador da vez.
 int jogadaJogador(peca mao[], mesa *mesaAtual){
-    char lado = escolherLado();
     int indice = escolherIndicePeca(mao);
-    int codigo = validarJogada(mao[indice], *mesaAtual, lado);
+    int ladosDisponiveis = verificarLadosDisponiveis(mao[indice], *mesaAtual);
 
-    if (codigo == -1){
+    char lado;
+    if (ladosDisponiveis == 0){
         jogadaInvalida();
         return 0;
     }
+    else if (ladosDisponiveis == 1){
+        lado = 'E'; // so encaixa na esquerda, joga direto
+    }
+    else if (ladosDisponiveis == 2){
+        lado = 'D'; // so encaixa na direita, joga direto
+    }
+    else{
+        lado = escolherLado(); // encaixa nos dois, ai sim pergunta
+    }
+
+    int codigo = validarJogada(mao[indice], *mesaAtual, lado);
 
     atualizarMesa(mao[indice], mesaAtual, lado, codigo);
     mao[indice].lado1 = -1;
@@ -798,4 +809,15 @@ void retomarJogoComputador(jogo sitJogo){
     printf("========================================\n\n");
 }
 
+//Verifica em quais lados da mesa a peca escolhida encaixa, reaproveitando validarJogada.
+//Retorna: 0 = nenhum lado 1 = somente esquerda 2 = somente direita 3 = ambos os lados
+int verificarLadosDisponiveis(peca pecaValida, mesa mesaJogo){
+    int encaixaEsquerda = (validarJogada(pecaValida, mesaJogo, 'E') != -1);
+    int encaixaDireita  = (validarJogada(pecaValida, mesaJogo, 'D') != -1);
+
+    if (encaixaEsquerda && encaixaDireita) return 3;
+    else if (encaixaEsquerda) return 1;
+    else if (encaixaDireita) return 2;
+    else return 0;
+}
 
