@@ -32,4 +32,8 @@ void menuJogarComputador(peca conjunto[]);
 void retomarJogoComputador(jogo sitJogo);
 int verificarLadosDisponiveis(peca pecaValida, mesa mesaJogo);
 
+int partidaFechada(peca mao1[], peca mao2[], mesa mesaJogo, int topoMonte);
+int contarPecasMao(peca mao[]);
+int somarPontosMao(peca mao[]);
+int decidirVencedorFechado(peca mao1[], peca mao2[]);
 #endif

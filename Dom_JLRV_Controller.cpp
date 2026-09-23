@@ -308,15 +308,21 @@ void menuJogar(peca conjunto[]){
             jogoAtual.mesaJogo = mesaJogo;
             jogoAtual.topoMonte = topoMonte;
             jogoAtual.modoJogo = 1;
-            int escolha_save = 2;
-            while((escolha_save != 1) && (escolha_save != 0)){
             
-				printf("Deseja Salvar?(1:Sim 0:Nao)\n");
-            	scanf("%d", &escolha_save);
-            	if((escolha_save != 1) && (escolha_save != 0)){
-            		printf("Escolha invalida\n");
-				}
+			int escolha_save = 2;
+			while((escolha_save != 1) && (escolha_save != 0)){
+			    printf("Deseja Salvar?(1:Sim 0:Nao)\n");
+			    if (scanf("%d", &escolha_save) != 1){
+			        // limpa o buffer para nao ficar preso no mesmo caractere invalido para sempre
+			        int c;
+			        while ((c = getchar()) != '\n' && c != EOF);
+			        escolha_save = 2; // garante que o while continue pedindo novamente
+			    }
+			    if((escolha_save != 1) && (escolha_save != 0)){
+			        printf("Escolha invalida\n");
+			    }
 			}
+			
 			if(escolha_save == 1){
 				gravaCadastro(jogoAtual);
 			}
@@ -328,17 +334,26 @@ void menuJogar(peca conjunto[]){
         }
 
         vitoria = checarVitoria(mao1, mao2);
+
+        //Se ninguem bateu ainda, verifica se a partida travou (fechada)
+        if (!vitoria && partidaFechada(mao1, mao2, mesaJogo, topoMonte)){
+            vitoria = decidirVencedorFechado(mao1, mao2);
+        }
     }
 
     limparTela();
     printf("========================================\n");
-    if(vitoria == 1){
+    if(vitoria == 3){
+        printf("EMPATE! A partida fechou com a mesma qtd de pecas e pontos.\n");
+    }
+    else if(vitoria == 1){
         printf("Parabens! O JOGADOR 1 bateu e venceu a partida!\n");
     } else {
         printf("Parabens! O JOGADOR 2 bateu e venceu a partida!\n");
     }
     printf("========================================\n\n");
 }
+
 
 //Grava o estado atual do jogo em um arquivo binario
 void gravaCadastro(jogo sitJogo){
@@ -455,14 +470,20 @@ void retomarJogo(jogo sitJogo){
             jogoAtual.mesaJogo = mesaJogo;
             jogoAtual.topoMonte = topoMonte;
 			jogoAtual.modoJogo = 2;
-            int escolha_save = 2;
-            while((escolha_save != 1) && (escolha_save != 0)){
-                printf("Deseja Salvar?(1:Sim 0:Nao)\n");
-                scanf("%d", &escolha_save);
-                if((escolha_save != 1) && (escolha_save != 0)){
-                    printf("Escolha invalida\n");
-                }
-            }
+			
+			int escolha_save = 2;
+			while((escolha_save != 1) && (escolha_save != 0)){
+			    printf("Deseja Salvar?(1:Sim 0:Nao)\n");
+			    if (scanf("%d", &escolha_save) != 1){
+			        // limpa o buffer para nao ficar preso no mesmo caractere invalido para sempre
+			        int c;
+			        while ((c = getchar()) != '\n' && c != EOF);
+			        escolha_save = 2; // garante que o while continue pedindo novamente
+			    }
+			    if((escolha_save != 1) && (escolha_save != 0)){
+			        printf("Escolha invalida\n");
+			    }
+			}
             if(escolha_save == 1){
                 gravaCadastro(jogoAtual);
             }
@@ -474,17 +495,26 @@ void retomarJogo(jogo sitJogo){
         }
 
         vitoria = checarVitoria(mao1, mao2);
+
+        //Se ninguem bateu ainda, verifica se a partida travou (fechada)
+        if (!vitoria && partidaFechada(mao1, mao2, mesaJogo, topoMonte)){
+            vitoria = decidirVencedorFechado(mao1, mao2);
+        }
     }
 
     limparTela();
     printf("========================================\n");
-    if(vitoria == 1){
+    if(vitoria == 3){
+        printf("EMPATE! A partida fechou com a mesma qtd de pecas e pontos.\n");
+    }
+    else if(vitoria == 1){
         printf("Parabens! O JOGADOR 1 bateu e venceu a partida!\n");
     } else {
         printf("Parabens! O JOGADOR 2 bateu e venceu a partida!\n");
     }
     printf("========================================\n\n");
 }
+
 //Carrega um jogo salvo em arquivo e, se existir, retoma a partida
 void menuCarregarJogo(){
     jogo jogoCarregado;
@@ -617,6 +647,7 @@ void menuJogarComputador(peca conjunto[]){
     }
     printf("Pressione ENTER para continuar...");
     getchar();
+    getchar();
 
     int vitoria = 0;
     while(!vitoria){
@@ -673,14 +704,19 @@ void menuJogarComputador(peca conjunto[]){
                 jogoAtual.mesaJogo = mesaJogo;
                 jogoAtual.topoMonte = topoMonte;
 
-                int escolha_save = 2;
-                while((escolha_save != 1) && (escolha_save != 0)){
-                    printf("Deseja Salvar?(1:Sim 0:Nao)\n");
-                    scanf("%d", &escolha_save);
-                    if((escolha_save != 1) && (escolha_save != 0)){
-                        printf("Escolha invalida\n");
-                    }
-                }
+				int escolha_save = 2;
+				while((escolha_save != 1) && (escolha_save != 0)){
+    				printf("Deseja Salvar?(1:Sim 0:Nao)\n");
+    				if (scanf("%d", &escolha_save) != 1){
+        // limpa o buffer para nao ficar preso no mesmo caractere invalido para sempre
+        				int c;
+        				while ((c = getchar()) != '\n' && c != EOF);
+        				escolha_save = 2; // garante que o while continue pedindo novamente
+    				}
+    				if((escolha_save != 1) && (escolha_save != 0)){
+       					 printf("Escolha invalida\n");
+    				}
+				}
                 if(escolha_save == 1){
                     gravaCadastro(jogoAtual);
                 }
@@ -693,11 +729,19 @@ void menuJogarComputador(peca conjunto[]){
         }
 
         vitoria = checarVitoria(mao1, mao2);
+
+        //Se ninguem bateu ainda, verifica se a partida travou (fechada)
+        if (!vitoria && partidaFechada(mao1, mao2, mesaJogo, topoMonte)){
+            vitoria = decidirVencedorFechado(mao1, mao2);
+        }
     }
 
     limparTela();
     printf("========================================\n");
-    if(vitoria == 1){
+    if(vitoria == 3){
+        printf("EMPATE! A partida fechou com a mesma qtd de pecas e pontos.\n");
+    }
+    else if(vitoria == 1){
         printf("Parabens! VOCE venceu a partida contra o computador!\n");
     } else {
         printf("O COMPUTADOR venceu a partida. Tente novamente!\n");
@@ -777,14 +821,19 @@ void retomarJogoComputador(jogo sitJogo){
                 jogoAtual.mesaJogo = mesaJogo;
                 jogoAtual.topoMonte = topoMonte;
 
-                int escolha_save = 2;
-                while((escolha_save != 1) && (escolha_save != 0)){
-                    printf("Deseja Salvar?(1:Sim 0:Nao)\n");
-                    scanf("%d", &escolha_save);
-                    if((escolha_save != 1) && (escolha_save != 0)){
-                        printf("Escolha invalida\n");
-                    }
-                }
+				int escolha_save = 2;
+				while((escolha_save != 1) && (escolha_save != 0)){
+    				printf("Deseja Salvar?(1:Sim 0:Nao)\n");
+    				if (scanf("%d", &escolha_save) != 1){
+        // limpa o buffer para nao ficar preso no mesmo caractere invalido para sempre
+        				int c;
+        				while ((c = getchar()) != '\n' && c != EOF);
+        				escolha_save = 2; // garante que o while continue pedindo novamente
+    				}
+    				if((escolha_save != 1) && (escolha_save != 0)){
+       					 printf("Escolha invalida\n");
+    				}
+				}
                 if(escolha_save == 1){
                     gravaCadastro(jogoAtual);
                 }
@@ -797,11 +846,19 @@ void retomarJogoComputador(jogo sitJogo){
         }
 
         vitoria = checarVitoria(mao1, mao2);
+
+        //Se ninguem bateu ainda, verifica se a partida travou (fechada)
+        if (!vitoria && partidaFechada(mao1, mao2, mesaJogo, topoMonte)){
+            vitoria = decidirVencedorFechado(mao1, mao2);
+        }
     }
 
     limparTela();
     printf("========================================\n");
-    if(vitoria == 1){
+    if(vitoria == 3){
+        printf("EMPATE! A partida fechou com a mesma qtd de pecas e pontos.\n");
+    }
+    else if(vitoria == 1){
         printf("Parabens! VOCE venceu a partida contra o computador!\n");
     } else {
         printf("O COMPUTADOR venceu a partida. Tente novamente!\n");
@@ -819,5 +876,51 @@ int verificarLadosDisponiveis(peca pecaValida, mesa mesaJogo){
     else if (encaixaEsquerda) return 1;
     else if (encaixaDireita) return 2;
     else return 0;
+}
+
+//Verifica empate
+int partidaFechada(peca mao1[], peca mao2[], mesa mesaJogo, int topoMonte){
+    if (topoMonte < 14) return 0; // ainda ha pecas no deposito, jogo nao esta fechado
+    if (existeJogadaPossivel(mao1, mesaJogo)) return 0;
+    if (existeJogadaPossivel(mao2, mesaJogo)) return 0;
+    return 1;
+}
+
+//Conta quantas pecas ainda restam na mao
+int contarPecasMao(peca mao[]){
+    int cont = 0;
+    for(int i = 0; i < 21; i++){
+        if (!(mao[i].lado1 == -1 && mao[i].lado2 == -1)) cont++;
+    }
+    return cont;
+}
+
+//Soma os pontos (lado1+lado2) de todas as pecas restantes na mao
+int somarPontosMao(peca mao[]){
+    int soma = 0;
+    for(int i = 0; i < 21; i++){
+        if (!(mao[i].lado1 == -1 && mao[i].lado2 == -1)){
+            soma += mao[i].lado1 + mao[i].lado2;
+        }
+    }
+    return soma;
+}
+
+
+//vence quem tiver menos pecas, empatando na quantidade, vence quem tiver
+//menor soma de pontos, se tambem empatar, e empate mesmo. Retorna 1, 2 ou 3 (empate).
+int decidirVencedorFechado(peca mao1[], peca mao2[]){
+    int qtd1 = contarPecasMao(mao1);
+    int qtd2 = contarPecasMao(mao2);
+
+    if (qtd1 < qtd2) return 1;
+    if (qtd2 < qtd1) return 2;
+
+    int pts1 = somarPontosMao(mao1);
+    int pts2 = somarPontosMao(mao2);
+    if (pts1 < pts2) return 1;
+    if (pts2 < pts1) return 2;
+
+    return 3; // empate total
 }
 
